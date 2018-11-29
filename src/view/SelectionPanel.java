@@ -3,64 +3,69 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
-class StateCountyPicker extends JPanel {
+class SelectionPanel extends JPanel {
 
   private JComboBox<String> stateOne;
   private JComboBox<String> stateTwo;
   private JComboBox<String> countyOne;
   private JComboBox<String> countyTwo;
+  private JComboBox<String> comparisonMetric;
   private JButton compareButton;
 
-  StateCountyPicker() {
+  SelectionPanel() {
     this.stateOne = new JComboBox<>();
     this.stateTwo = new JComboBox<>();
     this.countyOne = new JComboBox<>();
     this.countyTwo = new JComboBox<>();
+    this.comparisonMetric = new JComboBox<>();
     compareButton = new JButton("Compare");
-    FlowLayout flowLayout = new FlowLayout(); // top to bottom
-    this.setLayout(flowLayout);
+    BoxLayout overallLayout = new BoxLayout(this, BoxLayout.Y_AXIS); // top to bottom
+    this.setLayout(overallLayout);
 
     JPanel pickerOne = new JPanel();
-    FlowLayout springLayout1 = new FlowLayout();
-    pickerOne.setLayout(springLayout1);
+    pickerOne.setLayout(new FlowLayout());
     pickerOne.add(stateOne);
     pickerOne.add(countyOne);
 
     JPanel pickerTwo = new JPanel();
-    FlowLayout springLayout2 = new FlowLayout();
-    pickerTwo.setLayout(springLayout2);
+    pickerTwo.setLayout(new FlowLayout());
     pickerTwo.add(stateTwo);
     pickerTwo.add(countyTwo);
 
-    JPanel bothPicker = new JPanel();
-    bothPicker.setLayout(new BoxLayout(bothPicker, BoxLayout.Y_AXIS));
-    bothPicker.add(pickerOne);
-    bothPicker.add(pickerTwo);
+    this.add(pickerOne);
+    this.add(pickerTwo);
 
-    this.add(bothPicker);
-    this.add(compareButton);
+    JPanel selector = new JPanel();
+    selector.setLayout(new FlowLayout());
+    selector.add(comparisonMetric);
+    selector.add(compareButton);
 
+    this.add(selector);
   }
 
-  private void setElements(ArrayList<String> elementList, JComboBox<String> dropDown) {
+  private void setElements(String[] elementList, JComboBox<String> dropDown) {
     for (String element : elementList) {
       dropDown.addItem(element);
     }
   }
 
-  void setStates(ArrayList<String> stateList) {
+  void setStates(String[] stateList) {
     this.setElements(stateList, stateOne);
     this.setElements(stateList, stateTwo);
   }
 
-  void setCountyOne(ArrayList<String> countyList) {
+
+  void setCountyOne(String[] countyList) {
     this.setElements(countyList, countyOne);
   }
 
-  void setCountyTwo(ArrayList<String> countyList) {
+  void setCountyTwo(String[] countyList) {
     this.setElements(countyList, countyTwo);
+  }
+
+  void setMetrics(String[] metricList) {
+    this.setElements(metricList, comparisonMetric);
   }
 
   String getStateOne() {
@@ -77,6 +82,10 @@ class StateCountyPicker extends JPanel {
 
   String getCountyTwo() {
     return (String) this.countyTwo.getSelectedItem();
+  }
+
+  String getMetric() {
+    return (String) this.comparisonMetric.getSelectedItem();
   }
 
   void setActionListener(ActionListener listener) {
