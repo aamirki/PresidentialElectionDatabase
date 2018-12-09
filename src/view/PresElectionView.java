@@ -1,47 +1,117 @@
 package view;
-import javax.swing.*;
-import java.awt.*;
+
 import java.awt.event.ActionListener;
+import java.awt.event.ItemListener;
 
-public class PresElectionView extends JFrame {
+public interface PresElectionView {
 
-  private SelectionPanel picker;
-  private ActionListener listener;
+  /**
+   * Displays the view to the user.
+   */
+  void display();
 
-  public PresElectionView() {
+  /**
+   * Sets the action and item listener to the user
+   * @param listener the action listener
+   * @param itemListener the item listener
+   */
+  void setActionListener(ActionListener listener, ItemListener itemListener);
 
-    this.picker = new SelectionPanel();
+  /**
+   * Sets the lists of states.
+   *
+   * @param stateList the list of states
+   */
+  void setStateList(String[] stateList);
 
-    this.setLayout(new BoxLayout(this.getContentPane(), BoxLayout.Y_AXIS));
-    this.setSize(new Dimension(500, 500));
-    this.add(this.picker);
-    this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+  /**
+   * Sets the list of counties for the first section.
+   *
+   * @param countyList the list of counties for the first section.
+   */
+  void setCountyOneList(String[] countyList);
 
-  }
+  /**
+   * Sets the list of counties for the second section.
+   *
+   * @param countyList the list of counties for the second section.
+   */
+  void setCountyTwoList(String[] countyList);
 
-  public void display() {
-    this.setVisible(true);
-  }
+  /**
+   * Sets the metrics of the application comparison feature.
+   *
+   * @param metrics the metrics of the application comparison feature.
+   */
+  void setMetricList(String[] metrics);
 
-  public void setActionListener(ActionListener listener) {
-    this.listener = listener;
-    this.picker.setActionListener(this.listener);
-  }
+  /**
+   * Retrieves the state selected in the first section.
+   *
+   * @return the state selected in the first section
+   */
+  String getStateOne();
 
-  public void setStateList(String[] stateList) {
-    this.picker.setStates(stateList);
-  }
+  /**
+   * Retrieves the state selected in the second section.
+   *
+   * @return the state selected in the second section
+   */
+  String getStateTwo();
 
-  public void setCountyOneList(String[] countyList) {
-    this.picker.setCountyOne(countyList);
-  }
+  /**
+   * Retrieves the county selected in the first section.
+   *
+   * @return the county selected in the first section
+   */
+  String getCountyOne();
 
-  public void setCountyTwoList(String[] countyList) {
-    this.picker.setCountyTwo(countyList);
-  }
+  /**
+   * Retrieves the county selected in the second section.
+   *
+   * @return the county selected in the second section
+   */
+  String getCountyTwo();
 
-  public void setMetricList(String[] metrics) {
-    this.picker.setMetrics(metrics);
-  }
+  /**
+   * Retrieves the currently selected metric.
+   *
+   * @return the currently selected metric
+   */
+  String getMetric();
 
+  /**
+   * Sets the text of the comparison label.
+   *
+   * @param text the text to set
+   */
+  void setComparisonLabel(String text);
+
+  /**
+   * Sets the text of the first section label.
+   *
+   * @param text the text to set
+   */
+  void setFirstLabel(String text);
+
+  /**
+   * Sets the text of the second section label.
+   *
+   * @param text the text to set
+   */
+  void setSecondLabel(String text);
+
+  /**
+   * Retrieves the year selected in the first section.
+   *
+   * @return the year selected in the first section
+   */
+  int getYearOne();
+
+  /**
+   * Retrieves the year selected in the second section.
+   *
+   * @return the year selected in the second section
+   */
+  int getYearTwo();
 }
