@@ -164,6 +164,7 @@ public class DatabaseRetrieval {
     while (scan.hasNext()) {
       String[] line = scan.next().split(",");
       if (line[0].equalsIgnoreCase(state)) {
+        System.out.println(line[0]);
         try {
           totalPop = Integer.parseInt(line[1]);
           whitePop = Integer.parseInt(line[2]);
@@ -171,10 +172,14 @@ public class DatabaseRetrieval {
           asianPop = Integer.parseInt(line[4]);
           otherPop = Integer.parseInt(line[5]);
           hispanicPop = Integer.parseInt(line[6]);
-          nativePop = Integer.parseInt(line[8]);
         } catch (NumberFormatException ex) {
           ex.printStackTrace();
           throw new IllegalStateException("Could not load data for race by state");
+        }
+        try {
+          nativePop = Integer.parseInt(line[8]);
+        } catch (NumberFormatException ex) {
+          System.out.println("Native data unable to load");
         }
         DemographicData data =
             new DemographicData(whitePop, blackPop, asianPop, nativePop, otherPop, totalPop);
@@ -198,7 +203,6 @@ public class DatabaseRetrieval {
       int currentState = 0;
       while (results.next()) {
         states[currentState] = results.getString("state_name");
-        System.out.println(results.getString("state_name"));
         currentState++;
       }
       results.close();
@@ -218,12 +222,13 @@ public class DatabaseRetrieval {
     try {
       Statement statement = conn.createStatement();
       ResultSet results
-          = statement.executeQuery("SELECT * FROM state WHERE state_name = " + stateName);
+          = statement.executeQuery("SELECT * FROM state WHERE state_name = '" + stateName + "'");
       results.next();
       int state_id = results.getInt("state_id");
       results.close();
       return state_id;
     } catch (SQLException ex) {
+      ex.printStackTrace();
       throw new IllegalStateException("SQL Exception: " + ex.getSQLState());
     }
   }

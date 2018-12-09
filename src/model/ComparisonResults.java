@@ -226,16 +226,18 @@ public class ComparisonResults {
                                              int year1, int year2, float demoP1, float demoP2,
                                              int demP1, int demP2, int repP1, int repP2) {
     String comparison = comparisonBeginning(name1, name2, year1, year2, demP1, demP2, repP1, repP2);
-    if (demoP1 > demoP2) {
+    if (demoP1 < demoP2) {
       comparison += "\nThe " + demo + " percentage in " + name2 + " ("
-          + getRoundedString((double) demoP1) + ") is "
-          + Math.abs(percentageChange(demoP1, demoP2)) + "% less than in " + name1 + " ("
-          + getRoundedString((double) demoP2) + ")";
-    } else if (demoP1 < demoP2) {
+          + getRoundedString((double) demoP1) + "%) is "
+          + getRoundedString(Math.abs(demoP2 - demoP1)) + "% less than in "
+          + name1 + " ("
+          + getRoundedString((double) demoP2) + "%)";
+    } else if (demoP1 > demoP2) {
       comparison += "\nThe " + demo + " percentage in " + name2 + " ("
-          + getRoundedString((double) demoP1) + ") is "
-          + percentageChange(demoP1, demoP2) + "% greater than in " + name1 + " ("
-          + getRoundedString((double) demoP2) + ")";
+          + getRoundedString((double) demoP1) + "%) is "
+          + getRoundedString(Math.abs(demoP1 - demoP2))
+          + "% greater than in " + name1 + " ("
+          + getRoundedString((double) demoP2) + "%)";
     }
     return comparison;
   }
