@@ -14,7 +14,3 @@ If you have the database set up on your machine on the root connection (password
 ## How To Use
 
 The top section of the window is the first jurisdiction section and the section below that is the second jurisdiction section. You may fill out the desired states, counties and years. Use the compare button to directly compare the first and second counties in the given years using the comparison metric (which can be chosen using the dropdown menu to the left of the compare button). To compare the entire state, use the "Compare Entire State" button. The uppermost label will display the comparison data, the label below it will display raw data about the first jurisdiction, and the label below that will display raw data about the second jurisdiction.
-
-
-
-
